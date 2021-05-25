@@ -1,4 +1,5 @@
 import axios from "axios";
+import httpClient from "../../axios/axios";
 import {
   fetchContactRequest,
   fetchContactSuccess,
@@ -11,20 +12,22 @@ import {
   deleteContactError
 } from "./action";
 
-axios.defaults.baseURL = "http://localhost:4040";
+axios.defaults.baseURL = "https://connections-api.herokuapp.com";
 
 const fetchContact = () => async dispatch => {
   dispatch(fetchContactRequest());
 
   try {
-    const responce = await axios.get("/contacts");
+    const responce = await httpClient.get("/contacts");
     dispatch(fetchContactSuccess(responce.data));
   } catch (error) {
     dispatch(fetchContactError(error));
   }
 };
 
-const addContact = contact => async dispatch => {
+const addContact = contact => async (dispatch, getState) => {
+  axios.defaults.headers.Authorization = `Bearer ${getState().userAuth.token}`;
+
   dispatch(addContactRequest());
 
   try {
@@ -38,7 +41,7 @@ const addContact = contact => async dispatch => {
 const deleteContact = id => async dispatch => {
   dispatch(deleteContactRequest());
   try {
-    await axios.delete(`/contacts/${id}`);
+    await httpClient.delete(`/contacts/${id}`);
     dispatch(deleteContactSuccess(id));
   } catch (error) {
     dispatch(deleteContactError(error));

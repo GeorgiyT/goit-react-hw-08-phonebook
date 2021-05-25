@@ -1,5 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
+import userAuth from "../../auth/authReducer";
 import {
   fetchContactRequest,
   fetchContactSuccess,
@@ -15,7 +16,6 @@ import {
 
 const contacts = createReducer([], {
   [fetchContactSuccess]: (_, action) => action.payload,
-
   [addContactSuccess]: (state, action) => [...state, action.payload],
   [deleteContactSuccess]: (state, action) => state.filter(el => el.id !== action.payload)
 });
@@ -43,6 +43,7 @@ const error = createReducer("", {
 });
 
 export default combineReducers({
+  userAuth,
   contacts,
   isRequested,
   filter,
