@@ -1,6 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import userAuth from "../../auth/authReducer";
 import {
   fetchContactRequest,
   fetchContactSuccess,
@@ -43,11 +42,8 @@ const error = createReducer("", {
 });
 
 export default combineReducers({
-  userAuth,
   contacts,
   isRequested,
   filter,
   error
 });
-
-//Error записал, в принципе есть он есть мы можем его выводить в соответсвующем компоненте.. но уже 02:42.... оставлю до лучших времен

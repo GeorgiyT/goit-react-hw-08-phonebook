@@ -1,7 +1,11 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-import reducer from "./reducer";
+import persistReducer from "redux-persist/es/persistReducer";
+import persistStore from "redux-persist/es/persistStore";
+import phoneBookReducer from "./reducer";
+import userAuthReducer from "../../auth/authReducer";
+import storage from "redux-persist/lib/storage";
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -12,9 +16,17 @@ const middleware = [
   logger
 ];
 
+const authPersitConfig = {
+  key: "auth",
+  storage,
+  whitelist: ["token"]
+};
+
 const store = configureStore({
-  reducer: reducer,
+  reducer: { userAuth: persistReducer(authPersitConfig, userAuthReducer), phoneBook: phoneBookReducer },
   middleware
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export default { store, persistor };

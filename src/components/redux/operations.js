@@ -1,5 +1,5 @@
 import axios from "axios";
-import httpClient from "../../axios/axios";
+
 import {
   fetchContactRequest,
   fetchContactSuccess,
@@ -14,12 +14,15 @@ import {
 
 axios.defaults.baseURL = "https://connections-api.herokuapp.com";
 
-const fetchContact = () => async dispatch => {
+const fetchContact = () => async (dispatch, getState) => {
+  axios.defaults.headers.Authorization = `Bearer ${getState().userAuth.token}`;
+
   dispatch(fetchContactRequest());
 
   try {
-    const responce = await httpClient.get("/contacts");
+    const responce = await axios.get("/contacts");
     dispatch(fetchContactSuccess(responce.data));
+    console.log("TRY GET");
   } catch (error) {
     dispatch(fetchContactError(error));
   }
@@ -33,15 +36,18 @@ const addContact = contact => async (dispatch, getState) => {
   try {
     const responce = await axios.post("/contacts", contact);
     dispatch(addContactSuccess(responce.data));
+    console.log("TRY POST");
   } catch (error) {
     dispatch(addContactError(error));
   }
 };
 
-const deleteContact = id => async dispatch => {
+const deleteContact = id => async (dispatch, getState) => {
+  axios.defaults.headers.Authorization = `Bearer ${getState().userAuth.token}`;
+
   dispatch(deleteContactRequest());
   try {
-    await httpClient.delete(`/contacts/${id}`);
+    await axios.delete(`/contacts/${id}`);
     dispatch(deleteContactSuccess(id));
   } catch (error) {
     dispatch(deleteContactError(error));

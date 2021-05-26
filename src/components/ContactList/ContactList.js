@@ -36,7 +36,7 @@ ContactList.propTypes = {
 };
 
 const mapStateToProps = state => {
-  return { contacts: getVisibleContacts(state), isLoading: state.isRequested };
+  return { contacts: getVisibleContacts(state), isLoading: state.phoneBook.isRequested };
 };
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import authOperations from "../../auth/authOperations";
+import styles from "./Register.module.css";
 
 class Register extends Component {
   state = {
@@ -23,7 +24,7 @@ class Register extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.contentBox}>
         <h1>Register</h1>
         <form action="onSubmit" onSubmit={this.handleSubmit}>
           <label>
