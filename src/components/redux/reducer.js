@@ -13,10 +13,13 @@ import {
   addFilter
 } from "./action";
 
+import { logoutUserSuccess } from "../../auth/authActions";
+
 const contacts = createReducer([], {
   [fetchContactSuccess]: (_, action) => action.payload,
   [addContactSuccess]: (state, action) => [...state, action.payload],
-  [deleteContactSuccess]: (state, action) => state.filter(el => el.id !== action.payload)
+  [deleteContactSuccess]: (state, action) => state.filter(el => el.id !== action.payload),
+  [logoutUserSuccess]: () => []
 });
 
 const isRequested = createReducer(false, {

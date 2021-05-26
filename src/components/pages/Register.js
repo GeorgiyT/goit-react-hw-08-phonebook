@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import authOperations from "../../auth/authOperations";
+import * as authOperations from "../../auth/authOperations";
 import styles from "./Register.module.css";
 
 class Register extends Component {
@@ -41,13 +41,18 @@ class Register extends Component {
           </label>
           <button type="submit">Login</button>
         </form>
+        {this.props.isLoading && <h2 className={styles.contactList__header}>Загружаем....</h2>}
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  isLoading: state.userAuth.isRequested
+});
+
 const mapDispatchToProps = dispatch => ({
   register: user => dispatch(authOperations.register(user))
 });
 
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

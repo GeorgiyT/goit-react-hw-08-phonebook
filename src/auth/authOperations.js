@@ -1,5 +1,6 @@
 import axios from "axios";
-// import httpClient from "../axios/axios";
+import token from "./token";
+
 import {
   registerUserRequest,
   registerUserSuccess,
@@ -18,7 +19,7 @@ import {
 axios.defaults.baseURL = "https://connections-api.herokuapp.com";
 
 const register = user => async dispatch => {
-  //   dispatch(registerUserRequest());
+  dispatch(registerUserRequest());
 
   try {
     const responce = await axios.post("/users/signup", user);
@@ -29,7 +30,7 @@ const register = user => async dispatch => {
 };
 
 const login = user => async dispatch => {
-  //   dispatch(loginUserRequest());
+  dispatch(loginUserRequest());
 
   try {
     const responce = await axios.post("/users/login", user);
@@ -40,14 +41,14 @@ const login = user => async dispatch => {
 };
 
 const logout = () => async (dispatch, getState) => {
-  axios.defaults.headers.Authorization = `Bearer ${getState().userAuth.token}`;
+  token.set(getState().userAuth.token);
 
-  //   dispatch(logoutUserRequest());
+  dispatch(logoutUserRequest());
 
   try {
     await axios.post("/users/logout");
-    axios.defaults.headers.Authorization = `Bearer `;
     dispatch(logoutUserSuccess());
+    token.unset();
   } catch (error) {
     dispatch(logoutUserError(error));
   }
@@ -60,16 +61,16 @@ const currentUser = () => async (dispatch, getState) => {
 
   if (!persistedToken) return;
 
-  axios.defaults.headers.Authorization = `Bearer ${persistedToken}`;
+  token.set(persistedToken);
 
-  //   dispatch(currentUserRequest());
+  dispatch(currentUserRequest());
 
   try {
     const responce = await axios.get("/users/current");
     dispatch(currentUserSuccess(responce.data));
   } catch (error) {
-    // dispatch(currentUserError(error));
+    dispatch(currentUserError(error));
   }
 };
 
-export default { register, login, logout, currentUser };
+export { register, login, logout, currentUser };

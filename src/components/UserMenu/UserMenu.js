@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { isAuthenticated, getUserEmail } from "../../auth/authSelector";
 import avatar from "../../image/avatar.jpg";
-import authOperations from "../../auth/authOperations";
+import * as authOperations from "../../auth/authOperations";
 import styles from "./UserMenu.module.css";
 
 const NavigationAuth = ({ isAuth, email, logoutFunc }) => {

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./ContactForm.module.css";
 import { connect } from "react-redux";
-import operations from "../redux/operations.js";
+import * as operations from "../redux/operations.js";
 import { getContacts } from "../redux/selectors";
 
 class ContactForm extends React.Component {

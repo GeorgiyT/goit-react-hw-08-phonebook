@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./ContactList.module.css";
 import { connect } from "react-redux";
-import operations from "../redux/operations";
+import * as operations from "../redux/operations";
 import { getVisibleContacts } from "../redux/selectors";
 
 const ContactList = ({ contacts, isLoading, deleteContact }) => {

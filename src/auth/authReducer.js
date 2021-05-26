@@ -19,14 +19,14 @@ const initialUserState = { name: null, email: null };
 const user = createReducer(initialUserState, {
   [registerUserSuccess]: (_, { payload }) => payload.user,
   [loginUserSuccess]: (_, { payload }) => payload.user,
-  [logoutUserSuccess]: (_, __) => initialUserState,
+  [logoutUserSuccess]: () => initialUserState,
   [currentUserSuccess]: (_, { payload }) => payload
 });
 
 const token = createReducer(null, {
   [registerUserSuccess]: (_, { payload }) => payload.token,
   [loginUserSuccess]: (_, { payload }) => payload.token,
-  [logoutUserSuccess]: (_, __) => null
+  [logoutUserSuccess]: () => null
 });
 
 const error = createReducer(null, {
@@ -36,8 +36,27 @@ const error = createReducer(null, {
   [currentUserError]: (_, { payload }) => payload.message
 });
 
+const isRequested = createReducer(false, {
+  [registerUserRequest]: () => true,
+  [registerUserSuccess]: () => false,
+  [registerUserError]: () => false,
+
+  [loginUserRequest]: () => true,
+  [loginUserSuccess]: () => false,
+  [loginUserError]: () => false,
+
+  [logoutUserRequest]: () => true,
+  [logoutUserSuccess]: () => false,
+  [logoutUserError]: () => false,
+
+  [currentUserRequest]: () => true,
+  [currentUserSuccess]: () => false,
+  [currentUserError]: () => false
+});
+
 export default combineReducers({
   user,
   token,
-  error
+  error,
+  isRequested
 });

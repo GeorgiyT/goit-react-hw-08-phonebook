@@ -7,7 +7,7 @@ import Navigation from "./Navigation/Navigation";
 // import Register from "./pages/Register";
 import LoginMenu from "./LoginMenu/LoginMenu";
 import { connect } from "react-redux";
-import authOperations from "../auth/authOperations";
+import * as authOperations from "../auth/authOperations";
 import { isAuthenticated } from "../auth/authSelector";
 import UserMenu from "./UserMenu/UserMenu";
 import PrivatRoute from "./Routes/PrivatRoute";

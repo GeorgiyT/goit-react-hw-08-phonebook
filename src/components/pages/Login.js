@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import authOperations from "../../auth/authOperations";
+import * as authOperations from "../../auth/authOperations";
 import styles from "./Login.module.css";
 
 class Login extends Component {
@@ -38,13 +38,18 @@ class Login extends Component {
             Login
           </button>
         </form>
+        {this.props.isLoading && <h2 className={styles.contactList__header}>Загружаем....</h2>}
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  isLoading: state.userAuth.isRequested
+});
+
 const mapDispatchToProps = dispatch => ({
   login: user => dispatch(authOperations.login(user))
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

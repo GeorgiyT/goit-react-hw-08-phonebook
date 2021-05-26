@@ -27,9 +27,9 @@ Filter.propTypes = {
   addFilter: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return { value: getFilter(state) };
-};
+const mapStateToProps = state => ({
+  value: getFilter(state)
+});
 
 const mapDispatchToProps = {
   addFilter
