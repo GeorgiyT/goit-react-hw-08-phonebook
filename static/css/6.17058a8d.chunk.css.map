@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/pages/Register.module.css"],"names":[],"mappings":"AAAA,4BACE,iBACF,CAEA,+BACE,kBACF","file":"6.17058a8d.chunk.css","sourcesContent":[".contentBox {\r\n  text-align: center;\r\n}\r\n\r\n.contentBox h1 {\r\n  margin-bottom: 15px;\r\n}\r\n"]}
